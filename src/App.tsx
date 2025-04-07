@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import OrderHistory from "./pages/OrderHistory";
 import CardsAndAddress from "./pages/CardsAndAddress";
 import BrowsingHistory from "./pages/BrowsingHistory";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 // Create a client
@@ -28,6 +29,7 @@ function App() {
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="/cards-address" element={<CardsAndAddress />} />
               <Route path="/browsing-history" element={<BrowsingHistory />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/track-order" element={<NotFound />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
