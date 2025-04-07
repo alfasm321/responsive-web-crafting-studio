@@ -43,6 +43,8 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    --rentev-orange: 16 100% 50%;
   }
 
   .dark {
@@ -122,5 +124,21 @@
   
   .status-cancelled {
     @apply bg-red-100 text-rentev-canceled;
+  }
+
+  .bg-rentev-orange {
+    @apply bg-[#FF5E14];
+  }
+
+  .text-rentev-orange {
+    @apply text-[#FF5E14];
+  }
+
+  .border-rentev-orange {
+    @apply border-[#FF5E14];
+  }
+
+  .hover\:bg-rentev-orange\/10:hover {
+    @apply hover:bg-[#FF5E14]/10;
   }
 }

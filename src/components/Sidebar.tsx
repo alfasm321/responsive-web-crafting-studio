@@ -10,7 +10,8 @@ import {
   MapPin, 
   History, 
   Settings, 
-  LogOut 
+  LogOut,
+  CreditCard
 } from 'lucide-react';
 
 interface SidebarItemProps {
@@ -62,36 +63,43 @@ const Sidebar: React.FC = () => {
             icon={<Truck className="h-5 w-5" />} 
             label="Track Order" 
             href="/track-order"
+            isActive={path === "/track-order"}
           />
           <SidebarItem 
             icon={<ShoppingCart className="h-5 w-5" />} 
             label="Shopping Cart" 
             href="/cart"
+            isActive={path === "/cart"}
           />
           <SidebarItem 
             icon={<Heart className="h-5 w-5" />} 
             label="Wishlist" 
             href="/wishlist"
+            isActive={path === "/wishlist"}
           />
           <SidebarItem 
-            icon={<MapPin className="h-5 w-5" />} 
+            icon={<CreditCard className="h-5 w-5" />} 
             label="Cards & Address" 
-            href="/address"
+            href="/cards-address"
+            isActive={path === "/cards-address"}
           />
           <SidebarItem 
             icon={<History className="h-5 w-5" />} 
             label="Browsing History" 
             href="/browsing-history"
+            isActive={path === "/browsing-history"}
           />
           <SidebarItem 
             icon={<Settings className="h-5 w-5" />} 
             label="Settings" 
             href="/settings"
+            isActive={path === "/settings"}
           />
           <SidebarItem 
             icon={<LogOut className="h-5 w-5" />} 
             label="Log-out" 
             href="/logout"
+            isActive={path === "/logout"}
           />
         </ul>
       </nav>
