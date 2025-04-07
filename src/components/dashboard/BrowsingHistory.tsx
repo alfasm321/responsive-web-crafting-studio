@@ -35,7 +35,7 @@ const BrowsingHistory: React.FC = () => {
       image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
       title: "Modern Floor Lamp",
       price: "250/day",
-      description: "Height 20" H 31", Color: Wood, Material: Wood and Polish"
+      description: "Height 20\" H 31\", Color: Wood, Material: Wood and Polish"
     },
     {
       image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNsZWFuaW5nfGVufDB8fDB8fHww&w=1000&q=80",
