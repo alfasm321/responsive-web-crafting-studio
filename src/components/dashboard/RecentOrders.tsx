@@ -1,6 +1,15 @@
 
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 interface OrderProps {
   id: string;
@@ -24,19 +33,19 @@ const Order: React.FC<OrderProps> = ({ id, status, date, total }) => {
   };
   
   return (
-    <tr className="border-b">
-      <td className="py-3 px-2 text-sm">{id}</td>
-      <td className="py-3 px-2">
+    <TableRow>
+      <TableCell className="py-3 px-2 text-sm">{id}</TableCell>
+      <TableCell className="py-3 px-2">
         <span className={`status-badge ${getStatusClass()}`}>{status}</span>
-      </td>
-      <td className="py-3 px-2 text-sm">{date}</td>
-      <td className="py-3 px-2 text-sm">{total}</td>
-      <td className="py-3 px-2 text-right">
-        <button className="text-blue-500 hover:text-blue-700 text-sm flex items-center">
+      </TableCell>
+      <TableCell className="py-3 px-2 text-sm">{date}</TableCell>
+      <TableCell className="py-3 px-2 text-sm">{total}</TableCell>
+      <TableCell className="py-3 px-2 text-right">
+        <Button variant="ghost" className="text-blue-500 hover:text-blue-700 text-sm flex items-center p-0">
           View Details <ChevronRight className="h-4 w-4 ml-1" />
-        </button>
-      </td>
-    </tr>
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 };
 
@@ -55,28 +64,28 @@ const RecentOrders: React.FC = () => {
     <div className="bg-white p-4 rounded-md shadow-sm mb-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-sm font-medium text-gray-500">RECENT ORDER</h3>
-        <button className="flex items-center text-rentev-orange text-sm">
+        <Button variant="ghost" className="flex items-center text-rentev-orange text-sm p-0">
           View All <ChevronRight className="h-4 w-4 ml-1" />
-        </button>
+        </Button>
       </div>
       
       <div className="overflow-x-auto">
-        <table className="min-w-full">
-          <thead>
-            <tr className="bg-gray-50">
-              <th className="py-2 px-2 text-left text-xs font-medium text-gray-500">ORDER ID</th>
-              <th className="py-2 px-2 text-left text-xs font-medium text-gray-500">STATUS</th>
-              <th className="py-2 px-2 text-left text-xs font-medium text-gray-500">DATE</th>
-              <th className="py-2 px-2 text-left text-xs font-medium text-gray-500">TOTAL</th>
-              <th className="py-2 px-2 text-right text-xs font-medium text-gray-500">ACTION</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-gray-50">
+              <TableHead className="py-2 px-2 text-left text-xs font-medium text-gray-500">ORDER ID</TableHead>
+              <TableHead className="py-2 px-2 text-left text-xs font-medium text-gray-500">STATUS</TableHead>
+              <TableHead className="py-2 px-2 text-left text-xs font-medium text-gray-500">DATE</TableHead>
+              <TableHead className="py-2 px-2 text-left text-xs font-medium text-gray-500">TOTAL</TableHead>
+              <TableHead className="py-2 px-2 text-right text-xs font-medium text-gray-500">ACTION</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {orders.map((order, index) => (
               <Order key={index} {...order} />
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

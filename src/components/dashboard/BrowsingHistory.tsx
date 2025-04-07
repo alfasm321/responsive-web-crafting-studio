@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
 interface ProductProps {
   image: string;
@@ -11,7 +13,7 @@ interface ProductProps {
 
 const ProductCard: React.FC<ProductProps> = ({ image, title, price, description }) => {
   return (
-    <div className="bg-white rounded-md overflow-hidden border shadow-sm">
+    <Card className="overflow-hidden border shadow-sm">
       <div className="h-48 overflow-hidden">
         <img src={image} alt={title} className="w-full h-full object-cover" />
       </div>
@@ -20,12 +22,15 @@ const ProductCard: React.FC<ProductProps> = ({ image, title, price, description 
         <p className="text-gray-500 text-sm mb-2 line-clamp-2">{description}</p>
         <div className="flex justify-between items-center">
           <span className="text-rentev-orange font-medium">₹ {price}</span>
-          <button className="bg-white border border-rentev-orange text-rentev-orange px-3 py-1 rounded text-sm">
+          <Button 
+            variant="outline" 
+            className="border-rentev-orange text-rentev-orange hover:bg-rentev-orange/10 px-3 py-1 h-auto text-sm"
+          >
             Rent it
-          </button>
+          </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
@@ -49,9 +54,9 @@ const BrowsingHistory: React.FC = () => {
     <div className="bg-white p-4 rounded-md shadow-sm mb-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-sm font-medium text-gray-500">BROWSING HISTORY</h3>
-        <button className="flex items-center text-rentev-orange text-sm">
+        <Button variant="ghost" className="flex items-center text-rentev-orange text-sm p-0">
           View All <ChevronRight className="h-4 w-4 ml-1" />
-        </button>
+        </Button>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
