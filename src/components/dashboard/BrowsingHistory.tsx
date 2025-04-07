@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -54,8 +55,14 @@ const BrowsingHistory: React.FC = () => {
     <div className="bg-white p-4 rounded-md shadow-sm mb-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-sm font-medium text-gray-500">BROWSING HISTORY</h3>
-        <Button variant="ghost" className="flex items-center text-rentev-orange text-sm p-0">
-          View All <ChevronRight className="h-4 w-4 ml-1" />
+        <Button 
+          variant="ghost" 
+          className="flex items-center text-rentev-orange text-sm p-0" 
+          asChild
+        >
+          <Link to="/browsing-history">
+            View All <ChevronRight className="h-4 w-4 ml-1" />
+          </Link>
         </Button>
       </div>
       
