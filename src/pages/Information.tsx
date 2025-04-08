@@ -10,9 +10,10 @@ import {
   Card, 
   CardContent
 } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import Footer from '../components/Footer';
-import { Check, Info, AlertCircle, FileText } from 'lucide-react';
+import { Check, Info, AlertCircle, FileText, ChevronRight } from 'lucide-react';
 
 const Information = () => {
   return (
@@ -47,10 +48,22 @@ const Information = () => {
         {/* Main content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-6">RentEverything.shop</h2>
+            <div className="flex items-center mb-6">
+              <h2 className="text-2xl font-bold">RentEverything.shop</h2>
+              <div className="ml-auto">
+                <button className="bg-rentev-orange text-white px-4 py-2 rounded-md hover:bg-orange-600 transition duration-300">
+                  Join Today
+                </button>
+              </div>
+            </div>
             
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h3 className="text-xl font-bold mb-4">Privacy Policy – RentEverything.shop</h3>
+              <h3 className="text-xl font-bold mb-4 flex items-center">
+                <span className="bg-rentev-orange text-white p-1 rounded-full mr-2">
+                  <Info size={16} />
+                </span>
+                Privacy Policy – RentEverything.shop
+              </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
@@ -71,15 +84,23 @@ const Information = () => {
               </ul>
             </div>
 
-            <div className="bg-gradient-to-r from-gray-900 to-black text-white p-8 rounded-lg mb-8">
-              <h3 className="text-2xl font-bold mb-4">Your trusted and reliable RentEverything.shop</h3>
-              <button className="bg-rentev-orange hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 mt-4">
-                Terms and Conditions - RentEverything.shop Rules
-              </button>
+            <div className="bg-gradient-to-r from-gray-900 to-black text-white p-8 rounded-lg mb-8 relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/30"></div>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold mb-4">Your trusted and reliable RentEverything.shop</h3>
+                <button className="bg-rentev-orange hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 mt-4">
+                  Terms and Conditions - RentEverything.shop Rules
+                </button>
+              </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h3 className="text-xl font-bold mb-4">Terms and Conditions</h3>
+              <h3 className="text-xl font-bold mb-4 flex items-center">
+                <span className="bg-blue-500 text-white p-1 rounded-full mr-2">
+                  <FileText size={16} />
+                </span>
+                Terms and Conditions
+              </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <Info className="h-5 w-5 text-blue-500 mr-2 mt-0.5" />
@@ -105,12 +126,16 @@ const Information = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h3 className="text-xl font-bold mb-4">Refund and Insurance Policy - RentEverything.shop</h3>
+              <h3 className="text-xl font-bold mb-4 flex items-center">
+                <span className="bg-orange-500 text-white p-1 rounded-full mr-2">
+                  <AlertCircle size={16} />
+                </span>
+                Refund and Insurance Policy - RentEverything.shop
+              </h3>
+              <div className="border-l-4 border-rentev-orange pl-4 py-2 mb-4 bg-orange-50 italic">
+                Each article we rent has specific cancellation terms, typically 50 hours before the rental start date.
+              </div>
               <ul className="space-y-4">
-                <li className="flex items-start">
-                  <AlertCircle className="h-5 w-5 text-rentev-orange mr-2 mt-0.5" />
-                  <p>Each article we rent has the cancellation terms of which 50 hours before the rental start date.</p>
-                </li>
                 <li className="flex items-start">
                   <AlertCircle className="h-5 w-5 text-rentev-orange mr-2 mt-0.5" />
                   <p>You will/will still be provided by face-consultations, verify, ensure, or review rental services.</p>
@@ -128,6 +153,10 @@ const Information = () => {
                   <p>Optional insurance may be available to cover accidental damage, but it does not cover negligence or misuse.</p>
                 </li>
               </ul>
+              
+              <div className="mt-6 relative">
+                <div className="absolute left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-purple-500"></div>
+              </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
@@ -154,10 +183,14 @@ const Information = () => {
                   <p>By renting from us, you acknowledge and accept the full Rental Insurance Policy.</p>
                 </li>
               </ul>
+              
+              <div className="mt-6 relative">
+                <div className="absolute left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-orange-500"></div>
+              </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-500 to-orange-500 text-white p-6 rounded-lg mb-8 text-center">
-              <h3 className="text-2xl font-bold mb-4">Annual Reports</h3>
+            <div className="bg-gradient-to-r from-purple-500 to-orange-500 text-white p-6 rounded-lg mb-8">
+              <h3 className="text-2xl font-bold mb-4 text-center">Annual Reports</h3>
               <div className="flex justify-center space-x-4">
                 <button className="bg-white text-purple-700 hover:bg-gray-100 font-bold py-2 px-4 rounded-md transition duration-300">
                   2023
@@ -170,41 +203,48 @@ const Information = () => {
           </div>
 
           <div className="lg:col-span-1">
-            <Card className="mb-8">
+            <Card className="mb-8 sticky top-4">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-4">Important Information</h3>
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
-                    <AccordionTrigger>Terms of Service</AccordionTrigger>
+                    <AccordionTrigger className="hover:text-rentev-orange">Terms of Service</AccordionTrigger>
                     <AccordionContent>
                       <p>Our terms of service outline the rules and guidelines for using our rental platform. By using our service, you agree to these terms.</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
-                    <AccordionTrigger>Privacy Policy</AccordionTrigger>
+                    <AccordionTrigger className="hover:text-rentev-orange">Privacy Policy</AccordionTrigger>
                     <AccordionContent>
                       <p>Our privacy policy explains how we collect, use, and protect your personal information when you use our rental services.</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
-                    <AccordionTrigger>Refund Policy</AccordionTrigger>
+                    <AccordionTrigger className="hover:text-rentev-orange">Refund Policy</AccordionTrigger>
                     <AccordionContent>
                       <p>Learn about our refund conditions, timeframes, and the process to request a refund for rental services.</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
-                    <AccordionTrigger>Insurance Coverage</AccordionTrigger>
+                    <AccordionTrigger className="hover:text-rentev-orange">Insurance Coverage</AccordionTrigger>
                     <AccordionContent>
                       <p>Details about our optional insurance plans that protect both renters and owners in case of damage or loss.</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-5">
-                    <AccordionTrigger>Dispute Resolution</AccordionTrigger>
+                    <AccordionTrigger className="hover:text-rentev-orange">Dispute Resolution</AccordionTrigger>
                     <AccordionContent>
                       <p>Our process for handling disputes between renters and the platform, ensuring fair resolution for all parties involved.</p>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+                
+                <Alert className="mt-6">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    By renting from us, you acknowledge and accept all terms outlined in our policies.
+                  </AlertDescription>
+                </Alert>
               </CardContent>
             </Card>
 
@@ -213,33 +253,38 @@ const Information = () => {
                 <h3 className="text-xl font-bold mb-4">Helpful Documents</h3>
                 <ul className="space-y-3">
                   <li>
-                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800">
+                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800 group">
                       <FileText className="h-5 w-5 mr-2" />
-                      Terms and Conditions
+                      <span>Terms and Conditions</span>
+                      <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800">
+                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800 group">
                       <FileText className="h-5 w-5 mr-2" />
-                      Privacy Policy
+                      <span>Privacy Policy</span>
+                      <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800">
+                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800 group">
                       <FileText className="h-5 w-5 mr-2" />
-                      Insurance Coverage
+                      <span>Insurance Coverage</span>
+                      <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800">
+                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800 group">
                       <FileText className="h-5 w-5 mr-2" />
-                      Rental Agreement
+                      <span>Rental Agreement</span>
+                      <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800">
+                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-800 group">
                       <FileText className="h-5 w-5 mr-2" />
-                      Annual Report 2023
+                      <span>Annual Report 2023</span>
+                      <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
                   </li>
                 </ul>
