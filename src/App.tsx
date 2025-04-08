@@ -11,6 +11,10 @@ import CardsAndAddress from "./pages/CardsAndAddress";
 import BrowsingHistory from "./pages/BrowsingHistory";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import TrackOrder from "./pages/TrackOrder";
+import ShoppingCart from "./pages/ShoppingCart";
+import Wishlist from "./pages/Wishlist";
+import Logout from "./pages/Logout";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -30,7 +34,10 @@ function App() {
               <Route path="/cards-address" element={<CardsAndAddress />} />
               <Route path="/browsing-history" element={<BrowsingHistory />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/track-order" element={<NotFound />} />
+              <Route path="/track-order" element={<TrackOrder />} />
+              <Route path="/cart" element={<ShoppingCart />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/logout" element={<Logout />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
