@@ -12,7 +12,8 @@ import {
   Settings, 
   LogOut,
   CreditCard,
-  HelpCircle
+  HelpCircle,
+  FileText
 } from 'lucide-react';
 
 interface SidebarItemProps {
@@ -95,6 +96,12 @@ const Sidebar: React.FC = () => {
             label="Support" 
             href="/support"
             isActive={path === "/support"}
+          />
+          <SidebarItem 
+            icon={<FileText className="h-5 w-5" />} 
+            label="Information" 
+            href="/information"
+            isActive={path === "/information"}
           />
           <SidebarItem 
             icon={<Settings className="h-5 w-5" />} 

@@ -16,6 +16,7 @@ import ShoppingCart from "./pages/ShoppingCart";
 import Wishlist from "./pages/Wishlist";
 import Logout from "./pages/Logout";
 import Support from "./pages/Support";
+import Information from "./pages/Information";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/support" element={<Support />} />
+              <Route path="/information" element={<Information />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
