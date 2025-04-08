@@ -13,11 +13,10 @@ const Logout: React.FC = () => {
     // This is where you would typically clear authentication tokens
     // and other user data from local storage or cookies
     
-    // Show success toast
+    // Show success toast - removed the icon property which caused the type error
     toast({
       title: "Successfully signed out",
       description: "You have been successfully logged out of your account.",
-      icon: <Check className="h-4 w-4" />,
     });
     
     // Redirect after a short delay
