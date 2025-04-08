@@ -10,8 +10,10 @@ const Logout: React.FC = () => {
   const { toast } = useToast();
   
   useEffect(() => {
-    // This is where you would typically clear authentication tokens
-    // and other user data from local storage or cookies
+    // Clear local storage data
+    localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('cartItems');
     
     // Show success toast - removed the icon property which caused the type error
     toast({

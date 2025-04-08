@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/components/ui/use-toast';
 
 interface CartItem {
   id: number;
@@ -22,7 +23,8 @@ interface CartItem {
 }
 
 const ShoppingCart: React.FC = () => {
-  const [cartItems, setCartItems] = React.useState<CartItem[]>([
+  const { toast } = useToast();
+  const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: 1,
       name: "Professional DSLR Camera",
@@ -46,23 +48,84 @@ const ShoppingCart: React.FC = () => {
       }
     }
   ]);
+  const [couponCode, setCouponCode] = useState('');
+  const [discount, setDiscount] = useState(0);
+
+  // Load cart from localStorage on component mount
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cartItems');
+    if (savedCart) {
+      try {
+        setCartItems(JSON.parse(savedCart));
+      } catch (e) {
+        console.error("Failed to parse saved cart:", e);
+      }
+    }
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
   
   const handleQuantityChange = (id: number, change: number) => {
     setCartItems(cartItems.map(item => {
       if (item.id === id) {
-        return { ...item, quantity: Math.max(1, item.quantity + change) };
+        const newQuantity = Math.max(1, item.quantity + change);
+        return { ...item, quantity: newQuantity };
       }
       return item;
     }));
+    
+    toast({
+      title: "Cart updated",
+      description: "Item quantity has been updated",
+    });
   };
   
   const handleRemoveItem = (id: number) => {
     setCartItems(cartItems.filter(item => item.id !== id));
+    
+    toast({
+      title: "Item removed",
+      description: "Item has been removed from your cart",
+    });
+  };
+
+  const handleApplyCoupon = () => {
+    if (couponCode.toLowerCase() === 'discount10') {
+      setDiscount(10);
+      toast({
+        title: "Coupon applied",
+        description: "10% discount has been applied to your order",
+      });
+    } else if (couponCode.toLowerCase() === 'discount20') {
+      setDiscount(20);
+      toast({
+        title: "Coupon applied",
+        description: "20% discount has been applied to your order",
+      });
+    } else {
+      toast({
+        title: "Invalid coupon",
+        description: "The coupon code you entered is invalid",
+        variant: "destructive",
+      });
+    }
   };
   
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity * item.rental.duration), 0);
-  const tax = subtotal * 0.08;
-  const total = subtotal + tax;
+  const discountAmount = subtotal * (discount / 100);
+  const tax = (subtotal - discountAmount) * 0.08;
+  const total = subtotal - discountAmount + tax;
+
+  const handleCheckout = () => {
+    toast({
+      title: "Proceeding to checkout",
+      description: `Total amount: $${total.toFixed(2)}`,
+    });
+    // Here you would typically navigate to a checkout page
+  };
   
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
@@ -144,8 +207,10 @@ const ShoppingCart: React.FC = () => {
                         type="text" 
                         placeholder="Enter coupon code" 
                         className="flex-1"
+                        value={couponCode}
+                        onChange={(e) => setCouponCode(e.target.value)}
                       />
-                      <Button variant="outline">Apply Coupon</Button>
+                      <Button variant="outline" onClick={handleApplyCoupon}>Apply Coupon</Button>
                     </div>
                   </div>
                 </div>
@@ -158,6 +223,14 @@ const ShoppingCart: React.FC = () => {
                         <span className="text-gray-500">Subtotal</span>
                         <span>${subtotal.toFixed(2)}</span>
                       </div>
+                      
+                      {discount > 0 && (
+                        <div className="flex justify-between text-green-600">
+                          <span>Discount ({discount}%)</span>
+                          <span>-${discountAmount.toFixed(2)}</span>
+                        </div>
+                      )}
+                      
                       <div className="flex justify-between">
                         <span className="text-gray-500">Tax (8%)</span>
                         <span>${tax.toFixed(2)}</span>
@@ -169,11 +242,11 @@ const ShoppingCart: React.FC = () => {
                       </div>
                     </div>
                     
-                    <Button className="w-full mt-6 bg-rentev-orange hover:bg-rentev-orange/90">
+                    <Button className="w-full mt-6 bg-rentev-orange hover:bg-rentev-orange/90" onClick={handleCheckout}>
                       Proceed to Checkout
                     </Button>
                     
-                    <Button variant="outline" className="w-full mt-3">
+                    <Button variant="outline" className="w-full mt-3" onClick={() => window.history.back()}>
                       Continue Shopping
                     </Button>
                   </div>
@@ -192,7 +265,7 @@ const ShoppingCart: React.FC = () => {
                 <ShoppingBag className="mx-auto h-16 w-16 text-gray-300 mb-4" />
                 <h2 className="text-xl font-medium mb-2">Your cart is empty</h2>
                 <p className="text-gray-500 mb-6">Looks like you haven't added any items to your cart yet.</p>
-                <Button className="bg-rentev-orange hover:bg-rentev-orange/90">
+                <Button className="bg-rentev-orange hover:bg-rentev-orange/90" onClick={() => window.history.back()}>
                   Continue Shopping
                 </Button>
               </div>

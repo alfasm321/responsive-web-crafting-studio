@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Heart, ShoppingCart, Trash2, Star, Share2, Filter } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useToast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface WishlistItem {
   id: number;
@@ -19,7 +21,9 @@ interface WishlistItem {
 }
 
 const Wishlist: React.FC = () => {
-  const [wishlistItems, setWishlistItems] = React.useState<WishlistItem[]>([
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([
     {
       id: 1,
       name: "Professional DSLR Camera",
@@ -53,9 +57,111 @@ const Wishlist: React.FC = () => {
       available: true
     }
   ]);
+
+  // Load wishlist from localStorage on component mount
+  useEffect(() => {
+    const savedWishlist = localStorage.getItem('wishlistItems');
+    if (savedWishlist) {
+      try {
+        setWishlistItems(JSON.parse(savedWishlist));
+      } catch (e) {
+        console.error("Failed to parse saved wishlist:", e);
+      }
+    }
+  }, []);
+
+  // Save wishlist to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+  }, [wishlistItems]);
   
   const handleRemoveItem = (id: number) => {
     setWishlistItems(wishlistItems.filter(item => item.id !== id));
+    toast({
+      title: "Item removed",
+      description: "Item has been removed from your wishlist",
+    });
+  };
+
+  const handleAddToCart = (item: WishlistItem) => {
+    if (!item.available) {
+      toast({
+        title: "Item unavailable",
+        description: "This item is currently unavailable for rent",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Get existing cart items
+    const cartItemsStr = localStorage.getItem('cartItems');
+    let cartItems = [];
+    
+    try {
+      cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : [];
+    } catch (e) {
+      console.error("Failed to parse cart items:", e);
+    }
+    
+    // Check if item already exists in cart
+    const existingItemIndex = cartItems.findIndex((cartItem: any) => cartItem.id === item.id);
+    
+    if (existingItemIndex >= 0) {
+      // Update quantity if item already exists
+      cartItems[existingItemIndex].quantity += 1;
+    } else {
+      // Add new item to cart with default rental period
+      cartItems.push({
+        ...item,
+        quantity: 1,
+        rental: {
+          period: "day",
+          duration: 7
+        }
+      });
+    }
+    
+    // Save updated cart
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    
+    toast({
+      title: "Added to cart",
+      description: `${item.name} has been added to your cart`,
+    });
+  };
+
+  const handleShareItem = (item: WishlistItem) => {
+    // In a real app, this would open a share dialog
+    // For now, we'll just show a toast
+    toast({
+      title: "Share feature",
+      description: `Sharing ${item.name} with friends`,
+    });
+  };
+
+  const handleSortItems = (sortType: string) => {
+    let sortedItems = [...wishlistItems];
+    
+    switch (sortType) {
+      case 'price-low':
+        sortedItems.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-high':
+        sortedItems.sort((a, b) => b.price - a.price);
+        break;
+      case 'rating':
+        sortedItems.sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        // Default sort - do nothing
+        break;
+    }
+    
+    setWishlistItems(sortedItems);
+    toast({
+      title: "Wishlist sorted",
+      description: `Items sorted by ${sortType}`,
+    });
   };
   
   return (
@@ -98,10 +204,15 @@ const Wishlist: React.FC = () => {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Price: Low to High</DropdownMenuItem>
-                      <DropdownMenuItem>Price: High to Low</DropdownMenuItem>
-                      <DropdownMenuItem>Newest First</DropdownMenuItem>
-                      <DropdownMenuItem>Rating</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleSortItems('price-low')}>
+                        Price: Low to High
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleSortItems('price-high')}>
+                        Price: High to Low
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleSortItems('rating')}>
+                        Rating
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
@@ -145,11 +256,16 @@ const Wishlist: React.FC = () => {
                           <Button 
                             className="flex-1 bg-rentev-orange hover:bg-rentev-orange/90"
                             disabled={!item.available}
+                            onClick={() => handleAddToCart(item)}
                           >
                             <ShoppingCart className="h-4 w-4 mr-1" />
                             Add to Cart
                           </Button>
-                          <Button variant="outline" size="icon">
+                          <Button 
+                            variant="outline" 
+                            size="icon"
+                            onClick={() => handleShareItem(item)}
+                          >
                             <Share2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -167,7 +283,10 @@ const Wishlist: React.FC = () => {
                 <Heart className="mx-auto h-16 w-16 text-gray-300 mb-4" />
                 <h2 className="text-xl font-medium mb-2">Your wishlist is empty</h2>
                 <p className="text-gray-500 mb-6">Save items you want to rent later by clicking the heart icon.</p>
-                <Button className="bg-rentev-orange hover:bg-rentev-orange/90">
+                <Button 
+                  className="bg-rentev-orange hover:bg-rentev-orange/90"
+                  onClick={() => navigate('/')}
+                >
                   Explore Products
                 </Button>
               </div>
