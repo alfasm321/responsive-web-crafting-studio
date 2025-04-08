@@ -11,7 +11,8 @@ import {
   History, 
   Settings, 
   LogOut,
-  CreditCard
+  CreditCard,
+  HelpCircle
 } from 'lucide-react';
 
 interface SidebarItemProps {
@@ -88,6 +89,12 @@ const Sidebar: React.FC = () => {
             label="Browsing History" 
             href="/browsing-history"
             isActive={path === "/browsing-history"}
+          />
+          <SidebarItem 
+            icon={<HelpCircle className="h-5 w-5" />} 
+            label="Support" 
+            href="/support"
+            isActive={path === "/support"}
           />
           <SidebarItem 
             icon={<Settings className="h-5 w-5" />} 

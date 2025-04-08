@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search, ShoppingCart, Heart, User, Phone, ChevronDown } from 'lucide-react';
 import RentEvLogo from './RentEvLogo';
 
@@ -45,9 +46,9 @@ const Header: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
             <div className="flex items-center">
-              <div className="mr-2 md:mr-8">
+              <Link to="/" className="mr-2 md:mr-8">
                 <RentEvLogo />
-              </div>
+              </Link>
             </div>
             <div className="block md:hidden">
               <button className="p-2">
@@ -71,19 +72,21 @@ const Header: React.FC = () => {
           
           <div className="flex items-center space-x-4">
             <div className="hidden md:block">
-              <div className="relative">
+              <Link to="/cart" className="relative">
                 <ShoppingCart className="h-6 w-6" />
                 <span className="absolute -top-2 -right-2 bg-rentev-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">2</span>
-              </div>
+              </Link>
             </div>
             <div className="hidden md:block">
-              <Heart className="h-6 w-6" />
+              <Link to="/wishlist">
+                <Heart className="h-6 w-6" />
+              </Link>
             </div>
             <div className="hidden md:block">
-              <button className="flex items-center space-x-1">
+              <Link to="/account" className="flex items-center space-x-1">
                 <User className="h-6 w-6" />
                 <span>Profile</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -95,23 +98,23 @@ const Header: React.FC = () => {
             <button className="px-2 py-1 text-xs md:text-sm whitespace-nowrap flex items-center">
               All Category <ChevronDown className="ml-1 h-4 w-4" />
             </button>
-            <button className="px-2 py-1 text-xs md:text-sm whitespace-nowrap flex items-center">
+            <Link to="/track-order" className="px-2 py-1 text-xs md:text-sm whitespace-nowrap flex items-center">
               <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               Track Order
-            </button>
-            <button className="px-2 py-1 text-xs md:text-sm whitespace-nowrap flex items-center">
+            </Link>
+            <Link to="/wishlist" className="px-2 py-1 text-xs md:text-sm whitespace-nowrap flex items-center">
               <Heart className="w-4 h-4 mr-1" /> Wishlist
-            </button>
-            <button className="px-2 py-1 text-xs md:text-sm whitespace-nowrap flex items-center">
+            </Link>
+            <Link to="/support" className="px-2 py-1 text-xs md:text-sm whitespace-nowrap flex items-center font-medium text-rentev-orange">
               <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M12 16V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M12 8H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               Customer Support
-            </button>
+            </Link>
           </div>
           <div className="flex items-center whitespace-nowrap">
             <Phone className="h-4 w-4 mr-1" />
